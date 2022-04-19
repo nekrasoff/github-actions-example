@@ -2,7 +2,7 @@
 name: github-actions-example
 
 on:
-  
+
   push:
     branches: [ master ]
   pull_request:
@@ -19,15 +19,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    
-    #- name: Git clone
-      #uses: actions/checkout@v2 
-    
+
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
     - name: Testing
       run: npm run test
-      
+
     - name: Linting
       run: npx eslint --fix
-      
+
     - name: Building
       run: npm run build
